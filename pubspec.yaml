@@ -42,6 +42,7 @@ dependencies:
   get_it: ^7.2.0
   equatable: ^2.0.5
   dartz: ^0.10.1
+  just_audio: ^0.9.29
 
 dev_dependencies:
   flutter_test:
@@ -81,10 +82,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: LPMQ
+      fonts:
+        - asset: assets/fonts/LPMQ.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
