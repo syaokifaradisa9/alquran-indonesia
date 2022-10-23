@@ -5,7 +5,6 @@ import 'package:dartz/dartz.dart';
 
 class GetDetailSurah {
   final QuranRepository repository;
-
   GetDetailSurah(this.repository);
 
   Future<Either<Failure, DetailSurah>> execute(int id) {

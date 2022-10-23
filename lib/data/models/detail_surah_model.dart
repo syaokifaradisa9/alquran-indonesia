@@ -16,12 +16,14 @@ class DetailSurahModel extends Equatable{
     required this.previousSurah
   });
 
-  factory DetailSurahModel.fromJson(Map<String, dynamic> json) => DetailSurahModel(
-    surah: SurahModel.fromJson(json),
-    verses: List<VerseModel>.from(json['ayat'].map((x) => VerseModel.fromJson(x))),
-    nextSurah: SurahModel.fromJson(json['surat_selanjutnya']),
-    previousSurah: SurahModel.fromJson(json['surat_sebelumnya']),
-  );
+  factory DetailSurahModel.fromJson(Map<String, dynamic> json){
+    return DetailSurahModel(
+      surah: SurahModel.fromJson(json),
+      verses: List<VerseModel>.from(json['ayat'].map((x) => VerseModel.fromJson(x))),
+      nextSurah: json['nomor'] != 114 ? SurahModel.fromJson(json['surat_selanjutnya']) : SurahModel.fromJson(json),
+      previousSurah: json['nomor'] != 1 ? SurahModel.fromJson(json['surat_sebelumnya']) : SurahModel.fromJson(json),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "nomor" : surah.number,

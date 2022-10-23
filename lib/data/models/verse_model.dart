@@ -18,14 +18,16 @@ class VerseModel extends Equatable{
     required this.indonesianMean
   });
 
-  factory VerseModel.fromJson(Map<String, dynamic> json) => VerseModel(
-    id: json["id"],
-    surahNumber: json["surah"],
-    number: json["nomor"],
-    arabicText: json["ar"],
-    indonesianText: json["tr"],
-    indonesianMean: json["idn"],
-  );
+  factory VerseModel.fromJson(Map<String, dynamic> json){
+    return VerseModel(
+      id: json["id"],
+      surahNumber: json["surah"],
+      number: json["nomor"],
+      arabicText: json["ar"],
+      indonesianText: json["tr"],
+      indonesianMean: json["idn"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "id" : id,

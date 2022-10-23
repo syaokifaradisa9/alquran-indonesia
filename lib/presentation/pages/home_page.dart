@@ -1,6 +1,7 @@
 import 'package:alquran_indonesia/common/constants.dart';
 import 'package:alquran_indonesia/common/state_enum.dart';
 import 'package:alquran_indonesia/domain/entities/surah.dart';
+import 'package:alquran_indonesia/presentation/pages/detail_surah_page.dart';
 import 'package:alquran_indonesia/presentation/provider/surah_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,81 +27,93 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget surahCard({ required Surah surah, required AudioPlayerState state, required int surahPlayedNumber}) {
-      return Card(
-          child: Row(
-            children: [
-              Container(
-                width: 50,
-                height: 70,
-                color: k0xGreen,
-                alignment: Alignment.center,
-                child: Text(
-                  surah.number.toString(),
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: kRichBlack
+      return GestureDetector(
+        onTap: (){
+          Navigator.pushNamed(
+            context,
+            DetailSurahPage.ROUTE_NAME,
+            arguments: {
+              'surahNumber': surah.number,
+              'surahName': surah.latinName,
+            }
+          );
+        },
+        child: Card(
+            child: Row(
+              children: [
+                Container(
+                  width: 50,
+                  height: 70,
+                  color: k0xGreen,
+                  alignment: Alignment.center,
+                  child: Text(
+                    surah.number.toString(),
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: kRichBlack
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: "${surah.latinName} (",
-                        style: kSubtitle,
-                        children: [
-                          TextSpan(
-                            text: "${surah.arabicText} )",
-                            style: const TextStyle(
-                              fontFamily: 'LPMQ',
-                              fontSize: 16
-                            ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: "${surah.latinName} (",
+                              style: kSubtitle,
+                              children: [
+                                TextSpan(
+                                  text: "${surah.arabicText} )",
+                                  style: const TextStyle(
+                                      fontFamily: 'LPMQ',
+                                      fontSize: 16
+                                  ),
+                                )
+                              ]
                           )
-                        ]
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        surah.indonesianMean,
+                        style: kBodyText.copyWith(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400
+                        ),
                       )
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      surah.indonesianMean,
-                      style: kBodyText.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                    onTap: () async{
+                      Provider.of<SurahListNotifier>(
+                          context,
+                          listen: false
+                      ).playSurahByNumber(surah.number);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      width: 35,
+                      height: 35,
+                      decoration: const BoxDecoration(
+                          color: k0xGreen,
+                          shape: BoxShape.circle
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        state == AudioPlayerState.Playing && surahPlayedNumber == surah.number ?
+                        Icons.pause : Icons.play_arrow,
+                        color: kRichBlack,
+                        size: 20,
                       ),
                     )
-                  ],
                 ),
-              ),
-              GestureDetector(
-                  onTap: () async{
-                    Provider.of<SurahListNotifier>(
-                      context,
-                      listen: false
-                    ).playSurahByNumber(surah.number);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 12),
-                    width: 35,
-                    height: 35,
-                    decoration: const BoxDecoration(
-                      color: k0xGreen,
-                      shape: BoxShape.circle
-                    ),
-                    alignment: Alignment.center,
-                    child: Icon(
-                      state == AudioPlayerState.Playing && surahPlayedNumber == surah.number ?
-                      Icons.pause : Icons.play_arrow,
-                      color: kRichBlack,
-                      size: 20,
-                    ),
-                  )
-              ),
-            ],
-          )
+              ],
+            )
+        ),
       );
     }
 
@@ -127,9 +140,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         );
                       }else{
-                        return const Center(
-                          child: Text('Error'),
-                        );
+                        return const Center(child: Text('Error'));
                       }
                     }
                 ),
