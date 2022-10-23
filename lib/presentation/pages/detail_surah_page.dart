@@ -2,13 +2,14 @@ import 'package:alquran_indonesia/common/constants.dart';
 import 'package:alquran_indonesia/common/functions.dart';
 import 'package:alquran_indonesia/common/state_enum.dart';
 import 'package:alquran_indonesia/domain/entities/verse.dart';
+import 'package:alquran_indonesia/presentation/pages/surah_interpretation_page.dart';
 import 'package:alquran_indonesia/presentation/provider/surah_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class DetailSurahPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-movie';
+  static const ROUTE_NAME = '/detail-surah';
 
   final int surahNumber;
   final String surahName;
@@ -99,6 +100,17 @@ class _DetailSurahPageState extends State<DetailSurahPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.surahName),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.document_scanner_sharp),
+            onPressed: () {
+              Navigator.pushNamed(context, SurahInterpretationPage.ROUTE_NAME, arguments: {
+                'surahName': widget.surahName,
+                'surahNumber': widget.surahNumber
+              });
+            },
+          )
+        ],
       ),
       body: Consumer<SurahDetailNotifier>(
         builder: (context, data, child) {

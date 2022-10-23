@@ -22,8 +22,8 @@ class SurahInterpretationModel extends Equatable{
       verseInterpretations: List<VerseInterpretationModel>.from(
         json['tafsir'].map((x) => VerseInterpretationModel.fromJson(x))
       ),
-      nextSurah: SurahModel.fromJson(json['next_surah']),
-      previousSurah: SurahModel.fromJson(json['previous_surah']),
+      nextSurah: json['nomor'] != 114 ? SurahModel.fromJson(json['surat_selanjutnya']) : SurahModel.fromJson(json),
+      previousSurah: json['nomor'] != 1 ? SurahModel.fromJson(json['surat_sebelumnya']) : SurahModel.fromJson(json),
     );
   }
 

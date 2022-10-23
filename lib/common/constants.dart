@@ -25,8 +25,8 @@ final kTextTheme = TextTheme(
 );
 
 const kColorScheme = ColorScheme(
-  primary: kMikadoYellow,
-  primaryContainer: kMikadoYellow,
+  primary: k0xGreen,
+  primaryContainer: k0xGreen,
   secondary: kPrussianBlue,
   secondaryContainer: kPrussianBlue,
   surface: kRichBlack,
