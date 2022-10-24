@@ -2,7 +2,6 @@ import 'package:alquran_indonesia/common/state_enum.dart';
 import 'package:alquran_indonesia/domain/entities/detail_surah.dart';
 import 'package:alquran_indonesia/domain/usecases/get_detail_surah.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 
 class SurahDetailNotifier extends ChangeNotifier {
   late DetailSurah detailSurah;

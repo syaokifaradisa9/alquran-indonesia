@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           title: 'Al-quran Indonesia',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData.dark().copyWith(
             colorScheme: kColorScheme,
             primaryColor: kRichBlack,
